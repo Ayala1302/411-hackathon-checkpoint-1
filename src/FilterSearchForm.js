@@ -4,15 +4,10 @@ import TextField from "@mui/material/TextField";
 import "./App.css";
 
 function FilterSearchForm(props) {
-  const { setTags, handlePopular, setQuery, query } = props;
-
-//   const handleChange = (e) => {
-//     // console.log(e.target.value);
-//     setStories(e.target.value);
-//   };
+  const { setTags, setQuery, setSelection } = props;
 
   return (
-    <div className="App">
+    <div className="">
       <Box
         component="form"
         sx={{
@@ -35,7 +30,7 @@ function FilterSearchForm(props) {
           id="outlined-basic"
           label="Search stories by title, url, or author"
           variant="outlined"
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
         />
         <h2 className="settings">Settings</h2>
       </div>
@@ -43,21 +38,16 @@ function FilterSearchForm(props) {
       <div className="search-results">
         <form className="search-filters-container">
           Search
-          <select
-            onChange={(e) => {
-              setTags(e.target.value);
-            }}
-          >
-            <option value="">All</option>
-            <option value="stories">Stories</option>
+          <select onChange={(e) => setTags(e.target.value)}>
+            <option value="front_page">All</option>
+            <option value="story">Stories</option>
             <option value="comment">Comment</option>
           </select>
           by
-          <select>
-            <option value="comment" onChange={handlePopular}>
-              Popularity
-            </option>
-            <option>Date</option>
+          <select onChange={(e) => setSelection(e.target.value)}>
+            <option value="all">All</option>
+            <option value="date">Date</option>
+            <option value="author">Author</option>
           </select>
           for
           <select>

@@ -11,14 +11,37 @@ function App() {
   const [tags, setTags] = useState("");
   const [points, setPoints] = useState("");
   const [query, setQuery] = useState("");
+  const [selection, setSelection] = useState("")
 
   useEffect(() => {
+    if (selection === "all"){
+      const getData = async () => {
+        const response = await axios(`http://hn.algolia.com/api/v1/search?query=${query}&tags=${tags}`)
+        setSearches(response.data.hits)
+      }
+      getData()
+    }
+    if (selection === "date"){
+      const getDate = async () => {
+        const response = await axios(`http://hn.algolia.com/api/v1/search_by_date?query=${query}&tags=${tags}`)
+        setSearches(response.data.hits)
+      }
+      getDate()
+    }
+    if (selection === "author"){
+      const getAuthor = async () => {
+        const response = await axios(`http://hn.algolia.com/api/v1/search_by_author?query=${query}&tags=${tags}`)
+        setSearches(response.data.hits)
+      }
+      getAuthor()
+    }
     const getData = async () => {
       const response = await axios(`http://hn.algolia.com/api/v1/search?query=${query}&tags=${tags}`)
       setSearches(response.data.hits)
     }
     getData()
-  }, [points, query, tags]
+    
+  }, [points, query, tags, selection]
   )
 
   const handlePopular = (e) => {
@@ -39,6 +62,7 @@ function App() {
   return (
     <div className="App">
       <FilterSearchForm
+      setSelection={setSelection}
       onChange={handlePopular}
       query={query}
       setQuery={setQuery}
@@ -49,122 +73,6 @@ function App() {
     </div>
     );
 }
-  
-
-
-  // const handlePopular = (e) => {
-  //   console.log(e.target.value);
-  //   setTags(e.target.value);
-  // }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  // const handleChange = (e) => {
-  //   // console.log(e.target.value);
-  //   setStories(e.target.value);
-
-  //   axios
-  //     .get(`http://hn.algolia.com/api/v1/search?query=${e.target.value}`)
-  //     .then((result) => {
-  //       console.log("data", result.data.hits);
-  //       setSearchResults(result.data.hits);
-  //     });
-  // };
-
-  // return (
-  //   <div className="App">
-  //     <Box
-  //       component="form"
-  //       sx={{
-  //         "& > :not(style)": { m: 1, width: "25ch" },
-  //       }}
-  //       noValidate
-  //       autoComplete="off"
-  //     ></Box>
-  //     <div className="search-header">
-  //       <div className="header-logo">
-  //         <img
-  //           className="logo"
-  //           src="https://hn.algolia.com/packs/media/images/logo-hn-search-a822432b.png"
-  //           alt="logo"
-  //         />
-  //         <h2>Search Hacker News</h2>
-  //       </div>
-  //       <TextField
-  //         className="search-bar"
-  //         id="outlined-basic"
-  //         label="Search stories by title, url, or author"
-  //         variant="outlined"
-  //         onChange={handleChange}
-  //       />
-  //       <h2 className="settings">Settings</h2>
-  //     </div>
-
-  //     <div className="search-results">
-  //       <form className="search-filters-container">
-  //         Search
-  //           <select onChange={(e) => {setTags(e.target.value)}}>
-  //               <option value=''>All</option>
-  //               <option value='story'>Story</option>
-  //               <option value='comment'>Comment</option>
-  //           </select>
-  //           by
-  //           <select>
-  //               <option value='comment' onChange={handlePopular}>Popularity</option>
-  //               <option>Date</option>
-  //           </select>
-  //           for
-  //           <select>
-  //               <option>All Time</option>
-  //               <option>Last 24h</option>
-  //               <option>Past Week</option>
-  //               <option>Past Month</option>
-  //               <option>Past Year</option>
-  //           </select>
-          
-          
-  //         {/* <Select
-  //           className="search-filters"
-  //           labelId="demo-simple-select-label"
-  //           id="demo-simple-select"
-  //           value={stories}
-  //           label="Stories"
-  //           onchange={handleChange}
-  //         >
-  //           <MenuItem>All</MenuItem>
-  //           <MenuItem>Stories</MenuItem>
-  //           <MenuItem>Comments</MenuItem>
-  //         </Select>
-  //         by
-  //         <Select>
-  //           <option value="popularity">Popularity</option>
-  //           <option value="date">Date</option>
-  //         </Select>
-  //         for
-  //         <Select>
-  //           <option>All Time</option>
-  //           <option>Last 24h</option>
-  //           <option>Past Week</option>
-  //           <option>Past Month</option>
-  //           <option>Past Year</option>
-  //         </Select> */}
-  //       </form>
-
-  //       {searchResults.map((article) => (
-  //         <div>
-  //           <h2>{article.title}</h2>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   </div>
-  // );
 
 
 export default App;

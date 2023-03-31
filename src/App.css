@@ -1,15 +1,15 @@
 
 /*********App.js*********/
 .App {
-  /* text-align: center; */
   width: calc(85% - 10px);
   margin: 0 auto;
+  background: #f6f6ef;
 }
 
 .search-results {
   background: #f6f6ef;
   align-items: center;
-
+  padding: 0 2rem;
 }
 
 .search-header {
@@ -47,5 +47,6 @@
 .article {
   background: #f6f6ef;
   align-items: center;
+  padding: 0 2rem;
 }
 

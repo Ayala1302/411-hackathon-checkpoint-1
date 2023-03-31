@@ -6,18 +6,18 @@ function DisplayArticle(props) {
   const date = new Date(search.created_at).toLocaleDateString();
 
   return (
-    <section classname="article">
-      <div classname="article-title">
+    <section className="article">
+      <div className="article-title">
         <p key={index}>
           <a href={search.url}>{search.title}</a>
           <span className="url">({search.url})</span>
         </p>
       </div>
-      <article classname="article-info">
-        <span classname="article-info-points">{search.points} points |</span>
+      <article className="article-info">
+        <span className="article-info-points">{search.points} points |</span>
         <span>Author: {search.author} |</span>
         <span>Created: {date} |</span>
-        <span>Comments: {search.num_comments}</span>
+        <span>Comments: {search.comment_text}</span>
       </article>
     </section>
   );
